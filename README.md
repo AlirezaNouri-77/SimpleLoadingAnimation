@@ -1,4 +1,4 @@
-## simple loading Jetpack Compose
+## Simple loading animation
 built in jetpack compose and canvas
 
 ## Demo
