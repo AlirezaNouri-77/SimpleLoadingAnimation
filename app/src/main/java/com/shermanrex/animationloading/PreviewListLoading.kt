@@ -24,6 +24,7 @@ import com.shermanrex.animationloading.animations.DashCircleLoading
 import com.shermanrex.animationloading.animations.FadeCircleLoading
 import com.shermanrex.animationloading.animations.ThreeDotFading
 import com.shermanrex.animationloading.animations.ThreeDotScaling
+import com.shermanrex.animationloading.animations.WaveForm
 
 @Composable
 fun PreviewListLoading() {
@@ -86,6 +87,11 @@ fun PreviewListLoading() {
     item {
       PreviewItem(name = "CircularDotPulse") {
         CircularDotPulse()
+      }
+    }
+    item {
+      PreviewItem(name = "WaveForm") {
+        WaveForm()
       }
     }
   }
