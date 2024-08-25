@@ -2,10 +2,8 @@ package com.shermanrex.animationloading
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -25,13 +23,14 @@ import com.shermanrex.animationloading.animations.FadeCircleLoading
 import com.shermanrex.animationloading.animations.ThreeDotFading
 import com.shermanrex.animationloading.animations.ThreeDotScaling
 import com.shermanrex.animationloading.animations.WaveForm
+import com.shermanrex.animationloading.animations.WaveFormTwo
 
 @Composable
 fun PreviewListLoading() {
   LazyColumn(
     Modifier
       .fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterVertically),
+    verticalArrangement = Arrangement.spacedBy(25.dp, Alignment.CenterVertically),
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     item {
@@ -94,6 +93,11 @@ fun PreviewListLoading() {
         WaveForm()
       }
     }
+    item {
+      PreviewItem(name = "WaveFormTwo") {
+        WaveFormTwo()
+      }
+    }
   }
 }
 
@@ -107,10 +111,9 @@ private fun PreviewItem(
       .fillMaxWidth()
       .wrapContentHeight(),
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.Center,
+    horizontalArrangement = Arrangement.SpaceAround,
   ) {
     loading()
-    Spacer(modifier = Modifier.width(20.dp))
     Text(text = name)
   }
 }
