@@ -18,7 +18,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun ThreeDotFading(
@@ -74,16 +76,18 @@ fun ThreeDotFading(
 @Composable
 private fun ApplyAnimation(animatable: Animatable<Float, AnimationVector1D>, index: Int) {
   LaunchedEffect(key1 = Unit) {
-    delay(700 / 3 * index.toLong())
-    animatable.animateTo(
-      targetValue = 1f,
-      infiniteRepeatable(
-        animation = tween(
-          durationMillis = 700,
-          easing = LinearEasing
+    launch(Dispatchers.Main.immediate) {
+      delay(700 / 3 * index.toLong())
+      animatable.animateTo(
+        targetValue = 1f,
+        infiniteRepeatable(
+          animation = tween(
+            durationMillis = 700,
+            easing = LinearEasing
+          ),
+          repeatMode = RepeatMode.Reverse,
         ),
-        repeatMode = RepeatMode.Reverse,
-      ),
-    )
+      )
+    }
   }
 }

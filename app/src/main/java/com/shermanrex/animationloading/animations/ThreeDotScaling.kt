@@ -18,7 +18,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun ThreeDotScaling(
@@ -79,16 +81,19 @@ private fun ApplyAnimation(
   circleCount: Int,
 ) {
   LaunchedEffect(key1 = Unit) {
-    delay(duration / circleCount * index.toLong())
-    animatable.animateTo(
-      targetValue = 1f,
-      infiniteRepeatable(
-        animation = tween(
-          durationMillis = duration,
-          easing = FastOutSlowInEasing
+    launch(Dispatchers.Main.immediate) {
+      delay(duration / circleCount * index.toLong())
+      animatable.animateTo(
+        targetValue = 1f,
+        infiniteRepeatable(
+          animation = tween(
+            durationMillis = duration,
+            easing = FastOutSlowInEasing
+          ),
+          repeatMode = RepeatMode.Reverse,
         ),
-        repeatMode = RepeatMode.Reverse,
-      ),
-    )
+      )
+    }
+
   }
 }

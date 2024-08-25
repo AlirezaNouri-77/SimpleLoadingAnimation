@@ -32,7 +32,7 @@ fun CircleBounce(
 
   val animate = remember {
     Array(circleCount) {
-      Animatable(2.5f)
+      Animatable(4.5f)
     }
   }
   (1..circleCount).forEachIndexed { index, _ ->
@@ -80,7 +80,7 @@ private fun ApplyAnimation(
   LaunchedEffect(key1 = Unit) {
     delay(duration / (lineCount / 2) * index.toLong())
     animatable.animateTo(
-      targetValue = 4.5f,
+      targetValue = 2.5f,
       infiniteRepeatable(
         animation = tween(
           durationMillis = duration,

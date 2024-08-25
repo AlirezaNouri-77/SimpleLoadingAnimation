@@ -19,7 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -81,16 +83,18 @@ private fun ApplyAnimation(
   lineCount: Int,
 ) {
   LaunchedEffect(key1 = Unit) {
-    delay((duration / lineCount) * index.toLong())
-    animatable.animateTo(
-      targetValue = 1f,
-      infiniteRepeatable(
-        animation = tween(
-          durationMillis = duration,
-          easing = LinearEasing,
+    launch(Dispatchers.Main.immediate) {
+      delay((duration / lineCount) * index.toLong())
+      animatable.animateTo(
+        targetValue = 1f,
+        infiniteRepeatable(
+          animation = tween(
+            durationMillis = duration,
+            easing = LinearEasing,
+          ),
+          repeatMode = RepeatMode.Restart,
         ),
-        repeatMode = RepeatMode.Restart,
-      ),
-    )
+      )
+    }
   }
 }
