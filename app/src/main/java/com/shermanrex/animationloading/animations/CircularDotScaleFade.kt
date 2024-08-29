@@ -32,14 +32,13 @@ fun CircularDotScaleFade(
   size: Dp = 25.dp,
 ) {
 
-
   val animate = remember {
     Array(circleCount) {
       Animatable(0f)
     }
   }
 
-  (1..circleCount).forEachIndexed { index, _ ->
+  (0 until circleCount).forEachIndexed { index, _ ->
     ApplyAnimation(
       animatable = animate[index],
       index = index,
@@ -56,7 +55,7 @@ fun CircularDotScaleFade(
         .matchParentSize(),
     ) {
 
-      (1..circleCount).forEachIndexed { index, i ->
+      (0 until circleCount).forEachIndexed { index, i ->
 
         val angel = Math.PI / (circleCount / 2) * i
         val startX =

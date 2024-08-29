@@ -37,7 +37,7 @@ fun CircularDotScaleIn(
     }
   }
 
-  (1..circleCount).forEachIndexed { index, _ ->
+  (0 until circleCount).forEachIndexed { index, _ ->
     ApplyAnimation(animatable = animate[index], index = index, circleCount = circleCount)
   }
 
@@ -50,7 +50,7 @@ fun CircularDotScaleIn(
         .matchParentSize(),
     ) {
 
-      (1..circleCount).forEachIndexed { index, i ->
+      (0 until circleCount).forEachIndexed { index, i ->
 
         val angel = Math.PI / (circleCount / 2) * i
         val startX =
@@ -79,8 +79,8 @@ private fun ApplyAnimation(
   circleCount: Int,
 ) {
   LaunchedEffect(key1 = Unit) {
+    delay(duration / circleCount * index.toLong())
     launch(Dispatchers.Main.immediate) {
-      delay(duration / circleCount * index.toLong())
       animatable.animateTo(
         targetValue = 0f,
         infiniteRepeatable(

@@ -6,6 +6,7 @@ import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.shermanrex.animationloading.ui.theme.AnimationLoaingTheme
 import kotlinx.coroutines.Dispatchers
@@ -30,32 +32,34 @@ import kotlin.math.roundToInt
 fun WaveForm(
   modifier: Modifier = Modifier,
   enable: Boolean = true,
-  size: Dp = 35.dp,
+  size: DpSize = DpSize(width = 60.dp, height = 40.dp),
   density: Density = LocalDensity.current,
 ) {
 
-  val lineSpace = 7f
+  val lineSpace = 6f
   val lineWidth = 3f
-  val areaSize = with(density) {
-    size.toPx()
+  val width = with(density) {
+    size.width.toPx()
+  }
+  val height = with(density) {
+    size.height.toPx()
   }
 
-  val lineCount = ((areaSize - (lineSpace + lineWidth)) / (lineSpace + lineWidth)).roundToInt()
-  val halfHeight = (areaSize / 2)
+  val lineCount = ((width - (lineSpace)) / (lineSpace + lineWidth)).roundToInt()
 
   val animatable = remember {
     Array(lineCount) {
-      Animatable(initialValue = (0..halfHeight.toInt() / 3).random().toFloat())
+      Animatable(initialValue = 0f)
     }
   }
 
   if (enable){
     LaunchedEffect(Unit) {
-      (1..lineCount).forEachIndexed { index, _ ->
-        launch(Dispatchers.IO) {
+      (0 until lineCount).forEachIndexed { index, _ ->
+        launch(Dispatchers.Main.immediate) {
           delay(20L * (5..10).random())
           animatable[index].animateTo(
-            targetValue = halfHeight - 10f,
+            targetValue = height - 10f,
             infiniteRepeatable(
               animation = tween(
                 durationMillis = (400..600).random(),
@@ -69,8 +73,8 @@ fun WaveForm(
     }
   }else{
     LaunchedEffect(Unit) {
-      (1..lineCount).forEachIndexed { index, _ ->
-        launch(Dispatchers.IO) {
+      (0 until lineCount).forEachIndexed { index, _ ->
+        launch(Dispatchers.Main.immediate) {
           animatable[index].animateTo(
             targetValue = 0f,
           )
@@ -87,12 +91,11 @@ fun WaveForm(
 
     Canvas(modifier = Modifier.size(size)) {
 
-      for (index in 1..lineCount) {
-        if (index == lineCount || index == 1) continue
+      for (index in 0 until lineCount) {
         drawLine(
           color = Color.Black,
-          start = Offset(x = index * (lineWidth + lineSpace), y = halfHeight + animatable[index].value),
-          end = Offset(x = index * (lineWidth + lineSpace), y = halfHeight - animatable[index].value),
+          start = Offset(x = index * (lineWidth + lineSpace) + lineSpace, y = height),
+          end = Offset(x = index * (lineWidth + lineSpace)+ lineSpace, y = height - animatable[index].value),
           strokeWidth = lineWidth,
           cap = StrokeCap.Round,
         )

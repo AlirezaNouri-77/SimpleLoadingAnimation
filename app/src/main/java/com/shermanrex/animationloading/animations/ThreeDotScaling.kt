@@ -38,7 +38,7 @@ fun ThreeDotScaling(
     }
   }
 
-  (1..circleCount).forEachIndexed { index, _ ->
+  (0 until circleCount).forEachIndexed { index, _ ->
     ApplyAnimation(animatable = animate[index], index = index, circleCount = circleCount)
   }
 
@@ -51,7 +51,7 @@ fun ThreeDotScaling(
         .matchParentSize(),
     ) {
 
-      (1..circleCount).forEachIndexed { index, _ ->
+      (0 until circleCount).forEachIndexed { index, _ ->
 
         val center = when (index) {
           0 -> Offset(x = this.center.x - (circleRadius * 2.5f), y = this.center.y)

@@ -38,7 +38,7 @@ fun ThreeDotFading(
     }
   }
 
-  (1..countCircle).forEachIndexed { index, _ ->
+  (0 until countCircle).forEachIndexed { index, _ ->
     ApplyAnimation(animate[index], index)
   }
 
@@ -51,7 +51,7 @@ fun ThreeDotFading(
         .matchParentSize(),
     ) {
 
-      (1..countCircle).forEachIndexed { index, _ ->
+      (0 until countCircle).forEachIndexed { index, _ ->
 
         val center = when (index) {
           0 -> Offset(x = this.center.x - (circleRadius * 2.5f), y = this.center.y)
