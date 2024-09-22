@@ -2,4 +2,6 @@
 built in jetpack compose and canvas
 
 ## Demo
-https://github.com/AlirezaNouri-77/SimpleaLoadingAnimation/assets/71293106/b097a58a-d194-4e30-a3f9-e13726a1d7b0
+video size ~ 3 MB
+
+https://github.com/user-attachments/assets/be695bca-a59e-4651-b751-2534e96325fb
